@@ -1,13 +1,16 @@
 ﻿{
   //"conString": "postgres://oyvxewhtunepmy:Ec5skkDNmi3opI-ehUuOgGFD78@ec2-54-235-254-56.compute-1.amazonaws.com:5432/d5inrcncd9ci7b",
-  "user": "ebestmobile",
-  "password": "Sharepoint@admin",
-  "server": "ga98eyp2ih.database.chinacloudapi.cn",
-  "database": "ICustomer",
-  "port": "1433",
-  "encrypt": true, // Use this if you're on Windows Azure
-  "min": "0",
-  "max": "10",
-  "idleTimeoutMillis": "10000",
-  "debug": true
+  "user": "sa",//"ebestmobile",
+  "password": "sharepoint@admin",//"Sharepoint@admin",
+  "server": "180.166.98.86",//"ga98eyp2ih.database.chinacloudapi.cn",
+  "database": "CCEJ_COKE1",
+  "port": "10010",
+  "options": {
+    "encrypt": true // Use this if you're on Windows Azure
+  },
+  "pool": {
+    "min": "0",
+    "max": "10",
+    "idleTimeoutMillis": "10000"
+  }
 }

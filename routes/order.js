@@ -337,18 +337,19 @@ router.get('/orderdetails', function (req, res) {
     if (!req.query.order_no)
         res.json({ err_code: 1, err_msg: 'miss param order_no' });
 
-    var sql = 'select \'' + req.query.order_no + '\' order_no, '+
-        '     \'John Hanson\' salesrep, ' +
-        '     \'13510738521\' salesrepphone, ' +
-        '     \'Bruce White\' deliveryman, ' +
-        '     \'13910363500\' deliverymanphone, ' +
-        '     \'400-3838438\' callcenter, ' +
+    //var sql = 'select \'' + req.query.order_no + '\' order_no, '+
+    //    '     \'John Hanson\' salesrep, ' +
+    //    '     \'13510738521\' salesrepphone, ' +
+    //    '     \'Bruce White\' deliveryman, ' +
+    //    '     \'13910363500\' deliverymanphone, ' +
+    //    '     \'400-3838438\' callcenter, ' +
 
-        '     \'INV000004562\' invoicenumber, ' +
-        '     \'Cash\' paymentmethod, ' +
-        '     \'2016-08-31\' lastpaymentdate, ' +
-        '     \'100.00\' amountpaid, ' +
-        '     \'40.02\' amountdue';
+    //    '     \'INV000004562\' invoicenumber, ' +
+    //    '     \'Cash\' paymentmethod, ' +
+    //    '     \'2016-08-31\' lastpaymentdate, ' +
+    //    '     \'100.00\' amountpaid, ' +
+    //    '     \'40.02\' amountdue';
+    var sql = 'select top 1 name,code from customers';
     dbHelper.query(sql,function (err, result) {
         if (err) {
             console.error(err);

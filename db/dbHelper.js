@@ -21,7 +21,7 @@ var conString = {
 dbHelper.query = function (sql, callBack) {
     //var conString = config.conString;
     console.log('[SQL:]', sql, '[:SQL]');
-    var connection = new mssql.Connection(conString, function (err) {
+    var connection = new mssql.Connection(config, function (err) {
         if (err) {
             console.log(err);
             return;
