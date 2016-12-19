@@ -349,16 +349,23 @@ router.get('/orderdetails', function (req, res) {
     //    '     \'2016-08-31\' lastpaymentdate, ' +
     //    '     \'100.00\' amountpaid, ' +
     //    '     \'40.02\' amountdue';
-    var sql = 'select top 1 name,code from customers';
-    dbHelper.query(sql,function (err, result) {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        if (result.length > 0) {
-            res.json(result[0]);
-        }
-    });
+    //var sql = 'select top 1 name,code from customers';
+    //dbHelper.query(sql,function (err, result) {
+    //    if (err) {
+    //        console.error(err);
+    //        return;
+    //    }
+    //    if (result.length > 0) {
+    //        res.json(result[0]);
+    //    }
+    //});
+    var time = sd.format(new Date(), 'YYYY-MM-DD');
+    var guid = uuid.v4();
+    var json = {
+        time: time,
+        guid: guid
+    };
+    res.json(json);
 
 });
 
