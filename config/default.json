@@ -6,7 +6,7 @@
   "database": "CCEJ_COKE1",
   "port": "1433",
   "options": {
-    "encrypt": true // Use this if you're on Windows Azure
+    "encrypt": false // Use this if you're on Windows Azure
   },
   "pool": {
     "min": "0",
