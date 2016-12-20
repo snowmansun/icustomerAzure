@@ -1,10 +1,10 @@
 ﻿{
   //"conString": "postgres://oyvxewhtunepmy:Ec5skkDNmi3opI-ehUuOgGFD78@ec2-54-235-254-56.compute-1.amazonaws.com:5432/d5inrcncd9ci7b",
-  "user": "sa",//"ebestmobile",
-  "password": "sharepoint@admin",//"Sharepoint@admin",
-  "server": "180.166.98.86",//"ga98eyp2ih.database.chinacloudapi.cn",
+  "user": "ebestmobile",
+  "password": "Sharepoint@admin",
+  "server": "ga98eyp2ih.database.chinacloudapi.cn",
   "database": "CCEJ_COKE1",
-  "port": "10010",
+  "port": "1433",
   "options": {
     "encrypt": true // Use this if you're on Windows Azure
   },

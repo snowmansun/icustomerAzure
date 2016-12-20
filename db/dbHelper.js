@@ -2,26 +2,12 @@
 var config = require("config");
 var dbHelper = {};
 
-var conString = {
-    user: config.user,//'ebestmobile',
-    password: config.password,//'Sharepoint@admin',
-    server: config.server,//'ga98eyp2ih.database.chinacloudapi.cn',
-    database: config.database,//'ICustomer',
-    port: config.port,//1433,
-    options: {
-        encrypt: config.encrypt//true // Use this if you're on Windows Azure  
-    },
-    pool: {
-        min: config.min,//0,
-        max: config.max,//10,
-        idleTimeoutMillis: config.idleTimeoutMillis// 3000
-    }
-};  
+var conString = 'Server=tcp:ga98eyp2ih.database.chinacloudapi.cn,1433;Database=ICustomer;User ID=ebestmobile;Password=Sharepoint@admin;Trusted_Connection=False;Encrypt=True;Connection Timeout=30000;';
 //执行sql,返回数据.  
 dbHelper.query = function (sql, callBack) {
     //var conString = config.conString;
     console.log('[SQL:]', sql, '[:SQL]');
-    var connection = new mssql.Connection(config, function (err) {
+    var connection = new mssql.Connection(conString, function (err) {
         if (err) {
             console.log(err);
             return;
