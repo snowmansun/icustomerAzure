@@ -14,27 +14,31 @@ router.get('/', function (req, res) {
             console.error(err);
             return;
         }
-        var row = result[0];
-        var body = row.body;
-        var file_name = row.name;
-        var length = row.bodylength;
-        var content_type = row.contenttype;
+        if (result.length > 0) {
+            var row = result[0];
+            var body = row.body;
+            var file_name = row.name;
+            var length = row.bodylength;
+            var content_type = row.contenttype;
 
-        //返回json对象
-        var res_json = {
-            content_type: content_type,
-            body: body.toString()//.toString('base64')
-        };
-        res.json(res_json);
+            //返回json对象
+            var res_json = {
+                content_type: content_type,
+                body: body.toString()//.toString('base64')
+            };
+            res.json(res_json);
 
-        //直接输出图片
-        //res.writeHead(200, { 'Content-Type': content_type});
-        //res.end(new Buffer(body.toString(),'base64'), 'binary');
+            //直接输出图片
+            //res.writeHead(200, { 'Content-Type': content_type});
+            //res.end(new Buffer(body.toString(),'base64'), 'binary');
 
-        //返回html标签
-        //res.writeHead(200, { 'Content-Type': 'text/html' });
-        //res.end('<img src=\'data:' + content_type + ';base64,' + body.toString() + '\' />');
-
+            //返回html标签
+            //res.writeHead(200, { 'Content-Type': 'text/html' });
+            //res.end('<img src=\'data:' + content_type + ';base64,' + body.toString() + '\' />');
+        }
+        else {
+            res.json({ err_code: 2, err_msg: 'no data' });
+        }
     });
 });
 router.get('/list', function (req, res) {

@@ -264,7 +264,7 @@ router.get('/download', function (req, res) {
             console.error(err);
             return;
         }
-        if (resOrder.length > 0) {            
+        if (resOrder.length > 0) {
             var res_jsons = [];
             var lastOrderNumber = '';
             var res_json = {};
@@ -329,6 +329,9 @@ router.get('/download', function (req, res) {
             res_jsons.push(res_json);
             res.json(res_jsons);
         }
+        else {
+            res.json({ err_code: 2, err_msg: 'no data' });
+        }
     });
 
 });
@@ -357,6 +360,9 @@ router.get('/orderdetails', function (req, res) {
         }
         if (result.length > 0) {
             res.json(result[0]);
+        }
+        else {
+            res.json({ err_code: 2, err_msg: 'no data' });
         }
     });
 
