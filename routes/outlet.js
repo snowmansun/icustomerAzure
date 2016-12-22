@@ -58,7 +58,7 @@ router.get('/info', function (req, res) {
             });
         }
         else {
-            res.json({ err_code: 2, err_msg: 'no data' });
+            res.json({});
         }
     });
 });

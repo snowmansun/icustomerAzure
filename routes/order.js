@@ -330,7 +330,7 @@ router.get('/download', function (req, res) {
             res.json(res_jsons);
         }
         else {
-            res.json({ err_code: 2, err_msg: 'no data' });
+            res.json([]);
         }
     });
 
@@ -362,7 +362,7 @@ router.get('/orderdetails', function (req, res) {
             res.json(result[0]);
         }
         else {
-            res.json({ err_code: 2, err_msg: 'no data' });
+            res.json({});
         }
     });
 
