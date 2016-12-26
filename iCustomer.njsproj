@@ -36,6 +36,7 @@
     <Compile Include="db\dbHelper.js" />
     <Compile Include="models\product.js" />
     <Compile Include="routes\auth.js" />
+    <Compile Include="routes\contact.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\order.js" />
     <Compile Include="routes\photo.js" />
