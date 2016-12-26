@@ -7,9 +7,10 @@ router.get('/info', function (req, res) {
         res.json({ err_code: 1, err_msg: 'miss param accountnumber' });
 
     var query = 'select a.accountnumber customercode,c.name customername,c.accountid ' +
-        '     , firstname,lastname, email, mobilephone ,a.ebmobile__salesroute__c salesrep' +
+        '     , c.firstname,c.lastname, c.email, c.mobilephone ,u.Username salesrep,u.MobilePhone salesrepphone' +
         ' from contact  c ' +
         ' inner join account a on c.accountid = a.sfid ' +
+        ' inner join user u on u.ebMobile__usercode__c = a.ebmobile__salesroute__c ' +
         ' where ebmobile__primary__c= true and a.accountnumber = \'' + req.query.accountnumber + '\'';
     db.query(query).then(function (result) {
         res.json(result.rows);
