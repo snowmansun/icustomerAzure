@@ -20,7 +20,8 @@ router.get('/list', function (req, res) {
         //'   \'00P2800000208xQEAQ\' as pic,' +
         '   p.baseprice__c as price,' +
         '   case when mh.ebmobile__product__c is not null then 1 else 0 end as isMusttohave, ' +
-        '   case when oi.ebmobile__product2__c is not null then 1 else 0 end as isHistorySku ' +
+        '   case when oi.ebmobile__product2__c is not null then 1 else 0 end as isHistorySku, ' +
+        '   rsp.ebmobile__rsp__c revenue_ea ' +
         'FROM' +
         '   product2 p ' +
         '   inner join ebmobile__productuom__c uom on p.id = uom.ebmobile__productid__c and uom.ebmobile__isactive__c=1 and ebmobile__uomcode__c= \'EA\' ' +
@@ -42,6 +43,14 @@ router.get('/list', function (req, res) {
         '           order by o.ebmobile__orderdate__c desc ' +
         '       ) o on oi.ebmobile__ordernumber__c = o.ebmobile__ordernumber__c ' +
         '   ) oi on oi.ebmobile__product2__c=p.id ' +
+        '   left join ( ' +
+        '       select distinct pr.ebmobile__productid__c, pr.ebmobile__rsp__c ' +
+        '       from ebmobile__accountgroupitem__c agi  ' +
+        '       inner join ebmobile__accountgroup__c ag on agi.ebmobile__accountgroup__c = ag.id and ag.ebmobile__type__c = \'RED Survey\' ' +
+        '       inner join account ac on ac.id = agi.ebmobile__account__c ' +
+        '       inner join ebmobile__productrsp__c pr on pr.ebmobile__accountgroupid__c = ag.id ' +
+        '       where ac.accountnumber = \'' + req.query.accountnumber + '\' ' +
+        '   ) rsp on rsp.ebmobile__productid__c = p.id ' +
         '   left join attachment am ON am.parentid = p.id  AND am.isDeleted=0 '+
         //'   (' +
         //'       select am.parentid, am.id ' +
@@ -54,7 +63,7 @@ router.get('/list', function (req, res) {
         //'           group by productcode, am.parentid ' +
         //'       ) a on am.parentid = a.parentid and am.lastmodifieddate = a.lastmodifieddate ' +
         //'   ) am on am.parentid = p.id  ' +
-        'Where p.isactive = 1 and  am.sfid is not nul) a ' +
+        'Where p.isactive = 1 and  am.id is not null) a ' +
         'order by a.ismusttohave desc,a.ishistorysku desc,a.code ';
 
     dbHelper.query(sql, function (err, result) {
