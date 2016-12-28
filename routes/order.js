@@ -215,6 +215,7 @@ router.get('/download', function (req, res) {
         '     o.accountid outlet_id, ' +
         '     o."type" order_type, ' +
         '     o.ebmobile__orderdate__c order_date, ' +
+        '     o.ebMobile__TotalQuantity__c qty,' +
         '     o.ebmobile__totalquantitycs__c qty_cs, ' +
         '     o.ebmobile__totalquantityea__c qty_ea, ' +
         '     o.ebmobile__totalamount__c total_price, ' +
@@ -294,6 +295,7 @@ router.get('/download', function (req, res) {
                         "order_type": row.order_type,
                         "user_code": row.user_code,
                         "order_date": new Date(row.order_date).toLocaleString(),
+                        "qty": row.qty,
                         "qty_cs": row.qty_cs,
                         "qty_ea": row.qty_ea,
                         "total_price": row.total_price,
