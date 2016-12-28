@@ -32,6 +32,8 @@ app.use('/auth', require('./routes/auth'));
 app.use('/photo', require('./routes/photo'));
 app.use('/order', require('./routes/order'));
 app.use('/contact', require('./routes/contact'));
+
+
 /**************************捕获异常***********************************/
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
