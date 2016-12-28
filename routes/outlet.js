@@ -29,7 +29,7 @@ router.get('/info', function (req, res) {
         if (result.length > 0) {
             query = 'select am.id as pic' +
                 ' from ebmobile__accountgroupitem__c agi' +
-                ' inner join ebmobile__accountgroup__c ag on agi.ebmobile__accountgroup__c = ag.id and ag.ebmobile__type__c = \'RED Survey\'' +
+                ' inner join ebmobile__accountgroup__c ag on agi.ebmobile__accountgroup__c = ag.id and ag.ebmobile__type__c = \'AD\'' +
                 ' inner join attachment am on ag.id = am.parentid and am.name like \'AD_%\'' +
                 ' where agi.ebmobile__account__c = \'' + result[0].outlet_id + '\'';
             dbHelper.query(query, function (err, resPic) {

@@ -54,7 +54,7 @@ router.get('/list', function (req, res) {
         //'           group by productcode, am.parentid ' +
         //'       ) a on am.parentid = a.parentid and am.lastmodifieddate = a.lastmodifieddate ' +
         //'   ) am on am.parentid = p.id  ' +
-        'Where p.isactive = 1) a ' +
+        'Where p.isactive = 1 and  am.sfid is not nul) a ' +
         'order by a.ismusttohave desc,a.ishistorysku desc,a.code ';
 
     dbHelper.query(sql, function (err, result) {

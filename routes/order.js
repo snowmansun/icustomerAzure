@@ -22,6 +22,7 @@ router.post('/', function (req, res) {
                 '       accountid,' +
                 '       TYPE,' +
                 '       ebmobile__orderdate__c,' +
+                '       ebMobile__TotalQuantity__c,' +
                 '       ebmobile__totalquantitycs__c,' +
                 '       ebmobile__totalquantityea__c,' +
                 '       ebmobile__totalamount__c,' +
@@ -40,6 +41,7 @@ router.post('/', function (req, res) {
                 '       \'' + req.body.outlet_id + '\',' +
                 '       \'' + req.body.order_type + '\',' +
                 '       \'' + new Date(req.body.order_date).toISOString() + '\',' +
+                '       ' + req.body.qty + ',' +
                 '       ' + req.body.qty_cs + ',' +
                 '       ' + req.body.qty_ea + ',' +
                 '       ' + req.body.total_price + ',' +
@@ -209,7 +211,7 @@ router.get('/download', function (req, res) {
     if (!req.query.accountnumber)
         res.json({ err_code: 1, err_msg: 'miss param accountnumber' });
 
-    var sql = 'select o.OrderNumber order_no, ' +
+    var sql = 'select COALESCE(o.ordernumber,o.ebmobile__ordernumber__c) order_no, ' +
         '     o.accountid outlet_id, ' +
         '     o."type" order_type, ' +
         '     o.ebmobile__orderdate__c order_date, ' +
