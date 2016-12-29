@@ -40,11 +40,12 @@ router.post('/login', function (req, res) {
                     firstname: result[0].firstname,
                     lastname: result[0].lastname,
                     customername: result[0].customername,
-                    salesrepphone: result[0].salesrepphone,
                     mobile: result[0].mobilephone,
                     tel: result[0].phone,
                     address: result[0].ebmobile__address__c,
                     email: result[0].email,
+                    salesrep: result[0].salesrep,
+                    salesrepphone: result[0].salesrepphone,
                     head_pic: 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=481252135,1456887421&fm=58'
                 },
                 order_view: 'grid'
