@@ -71,7 +71,7 @@ router.get('/list', function (req, res) {
             console.error(err);
             return;
         }
-        res.json({});
+        res.json(result);
     });
 });
 
