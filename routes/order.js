@@ -17,6 +17,7 @@ router.post('/', function (req, res) {
             var time = sd.format(new Date(), 'YYYY-MM-DD');
             var guid = uuid.v4();
             var sqlHeader = 'insert into [order](ebMobile__OrderNumber__c,' +
+                '        LocalModified,'+
                 '       ebmobile__erpordernumber__c,' +
                 '       ebmobile__guid__c,' +
                 '       accountid,' +
@@ -36,6 +37,7 @@ router.post('/', function (req, res) {
                 '       ebmobile__isactive__c, ' +
                 '       effectivedate)' +
                 '   VALUES(\'' + req.body.order_no + '\',' +
+                '       1,'+
                 '       \'' + req.body.order_no + '\',' +
                 '       \'' + guid + '\',' +
                 '       \'' + req.body.outlet_id + '\',' +
@@ -106,6 +108,7 @@ router.post('/', function (req, res) {
 
                             sqlItem = 'declare @pId nvarchar(50) select @pId = id from product2 where productcode=\'' + item.product_code + '\' ' +
                                 '   insert into orderitem(ebMobile__OrderNumber__c, ' +
+                                '       LocalModified,' +
                                 '		ebmobile__product2__c,' +
                                 '       ebmobile__orderdate__c,' +
                                 '       ebmobile__uomcode__c,' +
@@ -118,6 +121,7 @@ router.post('/', function (req, res) {
                                 '       ebmobile__guid__c, ' +
                                 '       ebMobile__ItemSequence__c)' +
                                 '   values(\'' + req.body.order_no + '\',' +
+                                '       1,'+
                                 '       @pId,' +
                                 //'       \'' + new Date(req.body.order_date).toISOString() + '\',' +
                                 '       \'' + req.body.order_date + '\',' +

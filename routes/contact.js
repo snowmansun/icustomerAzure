@@ -23,7 +23,7 @@ router.get('/info', function (req, res) {
 });
 
 router.post('/update', function (req, res) {
-    var query = 'update contact set firstname=\'' + req.body.firstname + '\',lastname=\'' + req.body.lastname + '\',email=\'' + req.body.email + '\',mobilephone=\'' + req.body.mobile + '\' where accountid=\'' + req.body.accountid + '\'';
+    var query = 'update contact set LocalModified=1,firstname=\'' + req.body.firstname + '\',lastname=\'' + req.body.lastname + '\',email=\'' + req.body.email + '\',mobilephone=\'' + req.body.mobile + '\' where accountid=\'' + req.body.accountid + '\'';
     dbHelper.query(query, function (err, result) {
         if (err) {
             res.json({ err_code: 1, err_msg: 'insert failed:' + err.message });
