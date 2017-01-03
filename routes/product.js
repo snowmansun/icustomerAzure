@@ -46,7 +46,7 @@ router.get('/list', function (req, res) {
         '   left join ( ' +
         '       select distinct pr.ebmobile__productid__c, pr.ebmobile__rsp__c ' +
         '       from ebmobile__accountgroupitem__c agi  ' +
-        '       inner join ebmobile__accountgroup__c ag on agi.ebmobile__accountgroup__c = ag.id and ag.ebmobile__type__c = \'RED Survey\' ' +
+        '       inner join ebmobile__accountgroup__c ag on agi.ebmobile__accountgroup__c = ag.id and ag.ebmobile__type__c = \'RSP\' ' +
         '       inner join account ac on ac.id = agi.ebmobile__account__c ' +
         '       inner join ebmobile__productrsp__c pr on pr.ebmobile__accountgroupid__c = ag.id ' +
         '       where ac.accountnumber = \'' + req.query.accountnumber + '\' ' +
