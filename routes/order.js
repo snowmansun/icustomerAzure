@@ -115,6 +115,9 @@ router.post('/', function (req, res) {
                                 '       ebmobile__orderquantity__c,' +
                                 '       quantity,' +
                                 '       unitprice,' +
+                                '       ebMobile__LineAmount__c,' +
+                                '       ebMobile__LineNetAmount__c,' +
+                                '       ebMobile__LineTaxAmount__c,' +
                                 '       ebmobile__isactive__c,' +
                                 '       ebmobile__orderitemstatus__c,' +
                                 '       ebMobile__LineDiscAmount__c,' +
@@ -129,6 +132,9 @@ router.post('/', function (req, res) {
                                 '       \'' + item.qty + '\',' +
                                 '       \'' + item.qty + '\',' +
                                 '       \'' + item.unit_price + '\',' +
+                                '       ' + item.lineamount + ',' +
+                                '       ' + item.linenetamount + ',' +
+                                '       ' + item.linetaxamount + ',' +
                                 '       1,' +
                                 '       \'' + req.body.status+'\',' +
                                 '       \'' + item.discount + '\',' +
@@ -207,6 +213,9 @@ router.post('/', function (req, res) {
     //            "qty": "8",                         // ebmobile__orderquantity__c
     //            "unit_price": "5.0",                // unitprice
     //            "discount": "5.2"                   // ebemobile__LineDiscAmount__c
+    //            "lineamount": "5.3"                   // ebMobile__LineAmount__c
+    //            "linenetamount": "5.4"                   // ebMobile__LineNetAmount__c
+    //            "linetaxamount": "5.5"                   // ebMobile__LineTaxAmount__c
     //        }
     //    ]
     //};
