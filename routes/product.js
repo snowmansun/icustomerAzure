@@ -20,7 +20,7 @@ router.get('/list', function (req, res) {
         //'   \'00P2800000208xQEAQ\' as pic,' +
         '   p.baseprice__c as price,' +
         '   case when mh.ebmobile__product__c is not null then 1 else 0 end as ismusttohave, ' +
-        '   case when oi.ebmobile__product2__c is not null then 1 else 0 end as ihHistorySku, ' +
+        '   case when oi.ebmobile__product2__c is not null then 1 else 0 end as ishistorysku, ' +
         '   rsp.ebmobile__rsp__c revenue_ea ' +
         'FROM' +
         '   product2 p ' +
