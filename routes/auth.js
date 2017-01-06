@@ -30,6 +30,7 @@ router.post('/login', function (req, res) {
             console.error(err);
             return;
         }
+        if (result.length > 0) {
             var res_json = {
                 token: "9508f2cfb4e24fd98405e46e847166c1",
                 expires_in: "7200",
@@ -51,7 +52,10 @@ router.post('/login', function (req, res) {
                 order_view: 'grid'
             };
             res.json(res_json);
-
+        }
+        else {
+            res.json({});
+        }
     });
 });
 
