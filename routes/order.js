@@ -256,7 +256,10 @@ router.get('/download', function (req, res) {
         '     ebmobile__uomcode__c uom_code, ' + 
         '     ebmobile__orderquantity__c qty, ' + 
         '     unitprice unit_price, ' + 
-        '     oi.ebmobile__LineDiscAmount__c itemdiscount, ' + 
+        '     oi.ebmobile__LineDiscAmount__c itemdiscount, ' +
+        '     isnull(oi.ebMobile__LineAmount__c,0) lineamount, ' +
+        '     isnull(oi.ebMobile__LineNetAmount__c,0) linenetamount, ' +
+        '     isnull(oi.ebMobile__LineTaxAmount__c,0) linetaxamount, ' + 
         '     am.id as pic '+
         ' from [order] o ' +
         '   inner join account a on o.accountid = a.id ' +
@@ -294,6 +297,9 @@ router.get('/download', function (req, res) {
                         "qty": row.qty,
                         "unit_price": row.unit_price,
                         "discount": row.itemdiscount,
+                        "lineamount": row.lineamount,
+                        "linenetamount": row.linenetamount,
+                        "linetaxamount": row.linetaxamount,
                         "pic": row.pic
                     };
                     res_json.items.push(itemJson);
@@ -340,6 +346,9 @@ router.get('/download', function (req, res) {
                                 "qty": row.qty,
                                 "unit_price": row.unit_price,
                                 "discount": row.itemdiscount,
+                                "lineamount": row.lineamount,
+                                "linenetamount": row.linenetamount,
+                                "linetaxamount": row.linetaxamount,
                                 "pic": row.pic
                             }
                         ]
