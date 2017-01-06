@@ -17,7 +17,7 @@ router.post('/', function (req, res) {
             var time = sd.format(new Date(), 'YYYY-MM-DD');
             var guid = uuid.v4();
             var sqlHeader = 'insert into [order](ebMobile__OrderNumber__c,' +
-                '        LocalModified,'+
+                '       SFDCSyncFlag,'+
                 '       ebmobile__erpordernumber__c,' +
                 '       ebmobile__guid__c,' +
                 '       accountid,' +
@@ -108,7 +108,7 @@ router.post('/', function (req, res) {
 
                             sqlItem = 'declare @pId nvarchar(50) select @pId = id from product2 where productcode=\'' + item.product_code + '\' ' +
                                 '   insert into orderitem(ebMobile__OrderNumber__c, ' +
-                                '       LocalModified,' +
+                                '       SFDCSyncFlag,' +
                                 '		ebmobile__product2__c,' +
                                 '       ebmobile__orderdate__c,' +
                                 '       ebmobile__uomcode__c,' +
