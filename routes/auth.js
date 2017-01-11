@@ -48,7 +48,7 @@ router.post('/login', function (req, res) {
                     salesrep: result[0].salesrep,
                     salesrepname: result[0].salesrepname,
                     salesrepphone: result[0].salesrepphone,
-                    head_pic: 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=481252135,1456887421&fm=58'
+                    head_pic: 'http://i.niupic.com/images/2017/01/11/fggYoq.jpg'
                 },
                 order_view: 'grid'
             };
