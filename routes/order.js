@@ -229,7 +229,7 @@ router.get('/download', function (req, res) {
     var sql = 'select COALESCE(o.ordernumber,o.ebmobile__ordernumber__c) order_no, ' +
         '     o.accountid outlet_id, ' +
         '     o."type" order_type, ' +
-        '     o.ebmobile__orderdate__c order_date, ' +
+        '     CONVERT(VARCHAR(19),o.ebmobile__orderdate__c,120) order_date, ' +
         '     o.ebMobile__TotalQuantity__c qty,' +
         '     o.ebmobile__totalquantitycs__c qty_cs, ' +
         '     o.ebmobile__totalquantityea__c qty_ea, ' +
@@ -237,7 +237,7 @@ router.get('/download', function (req, res) {
         '     o.ebmobile__taxamount__c tax, ' +
         '     o.ebmobile__netamount__c net_price, ' +
         '     o.ebmobile__discamount__c discount, ' +
-        '     o.ebmobile__deliverydate__c delivery_date, ' +
+        '     CONVERT(VARCHAR(10),o.ebmobile__deliverydate__c,120) delivery_date, ' +
         '     o.ebmobile__deliverynotes__c delivery_note, ' +
         '     o.Status status, ' +
 
@@ -309,7 +309,7 @@ router.get('/download', function (req, res) {
                         res_jsons.push(res_json);
                         res_json = {};
                     }
-
+                    
                     res_json = {
                         "order_no": row.order_no,
                         "outlet_id": row.outlet_id,
