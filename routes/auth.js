@@ -19,7 +19,7 @@ router.post('/login', function (req, res) {
 
     }
 
-    var query = 'select a.accountnumber customercode,c.name customername,c.accountid ' +
+    var query = 'select a.accountnumber customercode,c.name customername,c.accountid,u.Name salesrepname ' +
         '     , c.firstname,c.lastname, c.email, c.mobilephone ,u.Username salesrep,u.MobilePhone salesrepphone' +
         ' from contact  c ' +
         ' inner join account a on c.accountid = a.id ' +
@@ -46,6 +46,7 @@ router.post('/login', function (req, res) {
                     address: result[0].ebmobile__address__c,
                     email: result[0].email,
                     salesrep: result[0].salesrep,
+                    salesrepname: result[0].salesrepname,
                     salesrepphone: result[0].salesrepphone,
                     head_pic: 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=481252135,1456887421&fm=58'
                 },
