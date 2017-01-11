@@ -254,7 +254,7 @@ router.get('/download', function (req, res) {
 
         '     pt.name product_code, ' + 
         '     ebmobile__uomcode__c uom_code, ' + 
-        '     ebmobile__orderquantity__c qty, ' + 
+        '     ebmobile__orderquantity__c item_qty, ' + 
         '     unitprice unit_price, ' + 
         '     oi.ebmobile__LineDiscAmount__c itemdiscount, ' +
         '     isnull(oi.ebMobile__LineAmount__c,0) lineamount, ' +
@@ -294,7 +294,7 @@ router.get('/download', function (req, res) {
                     var itemJson = {
                         "product_code": row.product_code,
                         "uom_code": row.uom_code,
-                        "qty": row.qty,
+                        "qty": row.item_qty,
                         "unit_price": row.unit_price,
                         "discount": row.itemdiscount,
                         "lineamount": row.lineamount,
@@ -343,7 +343,7 @@ router.get('/download', function (req, res) {
                             {
                                 "product_code": row.product_code,
                                 "uom_code": row.uom_code,
-                                "qty": row.qty,
+                                "qty": row.item_qty,
                                 "unit_price": row.unit_price,
                                 "discount": row.itemdiscount,
                                 "lineamount": row.lineamount,
