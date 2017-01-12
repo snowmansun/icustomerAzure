@@ -53,10 +53,10 @@ router.post('/', function (req, res) {
                 '       ' + req.body.net_price + ',' +
                 '       ' + req.body.discount + ',' +
                 '       \'' + req.body.delivery_date + '\',' +
-                '       \'' + req.body.delivery_note + '\',' +
+                '       N\'' + req.body.delivery_note + '\',' +
                 '       \'' + req.body.status + '\',' +
                 '       1,' +
-                '       \'' + new Date(time).toISOString()+'\')';
+                '       \'' + time+'\')';
             dbHelper.getTransaction(function (sql, transaction) {
                 transaction.begin(function (err) {
                     if (err) {
