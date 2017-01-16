@@ -35,6 +35,7 @@ app.use('/contact', require('./routes/contact'));
 app.use('/register', require('./routes/register'));
 
 
+
 /**************************捕获异常***********************************/
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
