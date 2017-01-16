@@ -32,6 +32,7 @@ app.use('/auth', require('./routes/auth'));
 app.use('/photo', require('./routes/photo'));
 app.use('/order', require('./routes/order'));
 app.use('/contact', require('./routes/contact'));
+app.use('/register', require('./routes/register'));
 
 
 /**************************捕获异常***********************************/

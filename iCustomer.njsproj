@@ -43,6 +43,7 @@
     <Compile Include="routes\product.js" />
     <Compile Include="routes\outlet.js" />
     <Compile Include="bin\www" />
+    <Compile Include="routes\register.js" />
     <Content Include="config\default.json" />
     <Content Include="package.json" />
     <Content Include="Procfile" />
