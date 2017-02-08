@@ -251,7 +251,7 @@ router.get('/download', function (req, res) {
         '     \'2016-08-31\' lastpaymentdate, ' +
         '     \'100.00\' amountpaid, ' +
         '     \'40.02\' amountdue, ' +
-
+         
         '     pt.name product_code, ' + 
         '     ebmobile__uomcode__c uom_code, ' + 
         '     ebmobile__orderquantity__c item_qty, ' + 
