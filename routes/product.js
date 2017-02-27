@@ -8,7 +8,8 @@ router.get('/list', function (req, res) {
     if (!req.query.accountnumber)
         res.json({ err_code: 1, err_msg: 'miss param accountnumber' });
     var sql =
-        'SELECT ROW_NUMBER() OVER(order by a.ismusttohave desc,a.ishistorysku desc,a.code) seq,* ' +
+        //'SELECT ROW_NUMBER() OVER(order by a.ismusttohave desc,a.ishistorysku desc,a.code) seq,* ' +
+        'SELECT ROW_NUMBER() OVER(order by a.ishistorysku desc,package,brand,a.code) seq,* ' +
         'FROM (SELECT' +
         '   productcode AS code,' +
         '   p.description AS name,' +
@@ -65,7 +66,7 @@ router.get('/list', function (req, res) {
         //'   ) am on am.parentid = p.id  ' +
         //'Where p.isactive = 1) a ' +
         'Where p.isactive = 1 and  am.id is not null) a ' +
-        'order by a.ismusttohave desc,a.ishistorysku desc,a.code ';
+        'order by a.ishistorysku desc,package,brand,a.code ';
 
     dbHelper.query(sql, function (err, result) {
         if (err) {
