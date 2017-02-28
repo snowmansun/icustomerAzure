@@ -85,7 +85,7 @@ router.post('/changepwd', function (req, res) {
         return;
     }
     var username = req.body.username;
-    var password = req.body.password;
+    var password = req.body.newpassword;
     var sql = 'UPDATE dbo.AccountRegistration SET Password=\'' + password + '\',UpdateDate=getdate() WHERE UserCode=\'' + username + '\'';
     dbHelper.query(sql, function (err, result) {
         if (err) {
