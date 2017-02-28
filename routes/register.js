@@ -23,10 +23,10 @@ router.post('/', function (req, res) {
                 }
                 else {
                     var guid = uuid.v4();
-                    var content = req.body.password;
-                    var md5 = crypto.createHash('md5');
-                    md5.update(content);
-                    var pwd = md5.digest('hex');
+                    var password = req.body.password;
+                    //var md5 = crypto.createHash('md5');
+                    //md5.update(password);
+                    //var pwd = md5.digest('hex');
 
                     var sqlReg = 'INSERT INTO [dbo].[AccountRegistration] ' +
                         '      ( Id ' +
@@ -44,7 +44,7 @@ router.post('/', function (req, res) {
                         '       ,\'' + req.body.username + '\' ' +
                         '       ,\'' + req.body.firstname + '\' ' +
                         '       ,\'' + req.body.lastname + '\' ' +
-                        '       ,\'' + pwd + '\' ' +
+                        '       ,\'' + password + '\' ' +
                         '       ,\'' + req.body.email + '\' ' +
                         '       ,\'' + req.body.mobile + '\' ' +
                         '       ,\'' + req.body.smscode + '\' ' +
