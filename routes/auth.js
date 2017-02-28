@@ -80,8 +80,8 @@ router.post('/login', function (req, res) {
 });
 
 router.post('/changepwd', function (req, res) {
-    if (!req.body.userid || !req.body.password) {
-        res.json({ err_code: 1, err_msg: 'miss param username or password' });
+    if (!req.body.userid || !req.body.newpassword) {
+        res.json({ err_code: 1, err_msg: 'miss param userid or password' });
         return;
     }
     var uid = req.body.userid;
