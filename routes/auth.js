@@ -36,7 +36,7 @@ router.post('/login', function (req, res) {
     var pwd = req.body.password;
     var username = req.body.username;
 
-    var query = 'select a.accountnumber customercode,c.name customername,c.accountid,u.Name salesrepname,u.Id uId '+
+    var query = 'select a.accountnumber customercode,c.name customername,c.accountid,u.Name salesrepname,ar.Id uId '+
         '     , c.firstname, c.lastname, c.email, c.mobilephone, u.Username salesrep, u.MobilePhone salesrepphone ' +
         ' from contact  c  ' +
         ' inner join account a on c.accountid = a.id ' +
@@ -80,13 +80,13 @@ router.post('/login', function (req, res) {
 });
 
 router.post('/changepwd', function (req, res) {
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.userid || !req.body.password) {
         res.json({ err_code: 1, err_msg: 'miss param username or password' });
         return;
     }
-    var username = req.body.username;
+    var uid = req.body.userid;
     var password = req.body.newpassword;
-    var sql = 'UPDATE dbo.AccountRegistration SET Password=\'' + password + '\',UpdateDate=getdate() WHERE UserCode=\'' + username + '\'';
+    var sql = 'UPDATE dbo.AccountRegistration SET Password=\'' + password + '\',UpdateDate=getdate() WHERE id=\'' + uid + '\'';
     dbHelper.query(sql, function (err, result) {
         if (err) {
             res.json({ err_code: 2, err_msg: 'change password failed!' });
