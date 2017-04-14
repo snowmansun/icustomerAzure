@@ -226,7 +226,7 @@ router.get('/download', function (req, res) {
     if (!req.query.accountnumber)
         res.json({ err_code: 1, err_msg: 'miss param accountnumber' });
 
-    var sql = 'select COALESCE(o.ordernumber,o.ebmobile__ordernumber__c) order_no, ' +
+    var sql = 'select top 10 COALESCE(o.ordernumber,o.ebmobile__ordernumber__c) order_no, ' +
         '     o.accountid outlet_id, ' +
         '     o."type" order_type, ' +
         '     CONVERT(VARCHAR(19),o.ebmobile__orderdate__c,120) order_date, ' +
@@ -278,7 +278,7 @@ router.get('/download', function (req, res) {
         //'    ) a on am.parentid = a.parentid and am.lastmodifieddate = a.lastmodifieddate  ' +
         //' ) am on am.parentid = pt.id '+
         ' where a.accountnumber = \'' + req.query.accountnumber + '\' and o.ebMobile__IsActive__c=1 ' +
-        ' and o.ebmobile__orderdate__c> (GETDATE()-30) order by o.ebmobile__orderdate__c desc';
+        ' and o.ebmobile__orderdate__c> dateadd(month,-6,GETDATE()) order by o.ebmobile__orderdate__c desc';
 
     dbHelper.query(sql, function (err,resOrder) {
         if (err) {
