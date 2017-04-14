@@ -65,7 +65,7 @@ router.get('/list', function (req, res) {
         //'   ) am on am.parentid = p.id  ' +
         'Where p.isactive = 1) a ' + 
         //'Where p.isactive = 1 and  am.id is not null) a ' +
-        'order by a.ismusttohave desc,a.ishistorysku desc,a.code ';
+        'order by a.ismusttohave desc,a.ishistorysku desc,a.ebMobile__Pack__c,a.ebMobile__Brand__c,a.code ';
 
     dbHelper.query(sql, function (err, result) {
         if (err) {
