@@ -226,59 +226,53 @@ router.get('/download', function (req, res) {
     if (!req.query.accountnumber)
         res.json({ err_code: 1, err_msg: 'miss param accountnumber' });
 
-    var sql = 'select top 10 COALESCE(o.ordernumber,o.ebmobile__ordernumber__c) order_no, ' +
-        '     o.accountid outlet_id, ' +
-        '     o."type" order_type, ' +
-        '     CONVERT(VARCHAR(19),o.ebmobile__orderdate__c,120) order_date, ' +
-        '     o.ebMobile__TotalQuantity__c qty,' +
-        '     o.ebmobile__totalquantitycs__c qty_cs, ' +
-        '     o.ebmobile__totalquantityea__c qty_ea, ' +
-        '     o.ebmobile__totalamount__c total_price, ' +
-        '     o.ebmobile__taxamount__c tax, ' +
-        '     o.ebmobile__netamount__c net_price, ' +
-        '     o.ebmobile__discamount__c discount, ' +
-        '     CONVERT(VARCHAR(10),o.ebmobile__deliverydate__c,120) delivery_date, ' +
-        '     o.ebmobile__deliverynotes__c delivery_note, ' +
-        '     o.Status status, ' +
-
-        '     \'John Hanson\' salesrep, ' +
-        '     \'13510738521\' salesrepphone, ' +
-        '     \'Bruce White\' deliveryman, ' +
-        '     \'13910363500\' deliverymanphone, ' +
-        '     \'400-3838438\' callcenter, ' +
-        '     \'INV000004562\' invoicenumber, ' +
-        '     \'Cash\' paymentmethod, ' +
-        '     \'2016-08-31\' lastpaymentdate, ' +
-        '     \'100.00\' amountpaid, ' +
-        '     \'40.02\' amountdue, ' +
-         
-        '     pt.name product_code, ' + 
-        '     ebmobile__uomcode__c uom_code, ' + 
-        '     ebmobile__orderquantity__c item_qty, ' + 
-        '     unitprice unit_price, ' + 
-        '     oi.ebmobile__LineDiscAmount__c itemdiscount, ' +
-        '     isnull(oi.ebMobile__LineAmount__c,0) lineamount, ' +
-        '     isnull(oi.ebMobile__LineNetAmount__c,0) linenetamount, ' +
-        '     isnull(oi.ebMobile__LineTaxAmount__c,0) linetaxamount, ' + 
-        '     am.id as pic '+
-        ' from [order] o ' +
-        '   inner join account a on o.accountid = a.id ' +
-        '   inner join orderitem oi on oi.ebmobile__ordernumber__c = o.ebmobile__ordernumber__c ' +
-        '   inner join product2 pt on pt.id = oi.ebmobile__product2__c ' +
-        '   left join attachment am ON am.parentid = pt.id  AND am.isdeleted=0 '+
-        //' ('+
-        //'    select am.parentid, am.id ' +
-        //'    from attachment am  ' +
-        //'    INNER JOIN( ' +
-        //'       select productcode, am.parentid, max(am.lastmodifieddate) lastmodifieddate  ' +
-        //'	    from product2 p  ' +
-        //'	       inner join attachment  am on am.parentid = p.id and am.isdeleted = false  ' +
-        //'	    where p.isactive = TRUE  ' +
-        //'	    group by productcode, am.parentid ' +
-        //'    ) a on am.parentid = a.parentid and am.lastmodifieddate = a.lastmodifieddate  ' +
-        //' ) am on am.parentid = pt.id '+
-        ' where a.accountnumber = \'' + req.query.accountnumber + '\' and o.ebMobile__IsActive__c=1 ' +
-        ' and o.ebmobile__orderdate__c> dateadd(month,-6,GETDATE()) order by o.ebmobile__orderdate__c desc';
+    var sql = 'SELECT  a.* , ' +
+        '          oi.ebMobile__LineDiscAmount__c itemdiscount , ' +
+        '          ISNULL(oi.ebMobile__LineAmount__c, 0) lineamount , ' +
+        '          ISNULL(oi.ebMobile__LineNetAmount__c, 0) linenetamount , ' +
+        '          ISNULL(oi.ebMobile__LineTaxAmount__c, 0) linetaxamount , ' +
+        '          am.Id AS pic , ' +
+        '          pt.Name product_code , ' +
+        '          ebMobile__UOMCode__c uom_code , ' +
+        '          ebMobile__OrderQuantity__c item_qty , ' +
+        '          UnitPrice unit_price ' +
+        '  FROM    (  ' +
+        '              SELECT TOP 10 ' +
+        '                      o.ebMobile__OrderNumber__c , ' +
+        '                      COALESCE(o.OrderNumber, o.ebMobile__OrderNumber__c) order_no , ' +
+        '                      o.AccountId outlet_id , ' +
+        '                      o."Type" order_type , ' +
+        '                      CONVERT(VARCHAR(19), o.ebMobile__OrderDate__c, 120) order_date , ' +
+        '                      o.ebMobile__TotalQuantity__c qty , ' +
+        '                      o.ebMobile__TotalQuantityCS__c qty_cs , ' +
+        '                      o.ebMobile__TotalQuantityEA__c qty_ea , ' +
+        '                      o.ebMobile__TotalAmount__c total_price , ' +
+        '                      o.ebMobile__TaxAmount__c tax , ' +
+        '                      o.ebMobile__NetAmount__c net_price , ' +
+        '                      o.ebMobile__DiscAmount__c discount , ' +
+        '                      CONVERT(VARCHAR(10), o.ebMobile__DeliveryDate__c, 120) delivery_date , ' +
+        '                      o.ebMobile__DeliveryNotes__c delivery_note , ' +
+        '                      o.Status status , ' +
+        '                      \'John Hanson\' salesrep , ' +
+        '                      \'13510738521\' salesrepphone , ' +
+        '                      \'Bruce White\' deliveryman , ' +
+        '                      \'13910363500\' deliverymanphone , ' +
+        '                      \'400-3838438\' callcenter , ' +
+        '                      \'INV000004562\' invoicenumber , ' +
+        '                      \'Cash\' paymentmethod , ' +
+        '                      \'2016-08-31\' lastpaymentdate , ' +
+        '                      \'100.00\' amountpaid , ' +
+        '                      \'40.02\' amountdue ' +
+        '              FROM      [Order] o ' +
+        '                      INNER JOIN Account a ON o.AccountId = a.Id ' +
+        '              WHERE     a.AccountNumber = \'' + req.query.accountnumber+'\' ' +
+        '                      AND o.ebMobile__IsActive__c = 1 ' +
+        '                      AND o.ebMobile__OrderDate__c > DATEADD(MONTH, -6, GETDATE()) ' +
+        '              ORDER BY  o.ebMobile__OrderDate__c DESC ' +
+        '      ) a ' +
+        '      INNER JOIN OrderItem oi ON oi.ebMobile__OrderNumber__c = a.ebMobile__OrderNumber__c ' +
+        '      INNER JOIN Product2 pt ON pt.Id = oi.ebMobile__Product2__c ' +
+        '      LEFT JOIN Attachment am ON am.ParentId = pt.Id AND am.IsDeleted = 0; ';
 
     dbHelper.query(sql, function (err,resOrder) {
         if (err) {
