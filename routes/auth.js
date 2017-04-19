@@ -43,7 +43,7 @@ router.post('/login', function (req, res) {
         ' inner join [user] u on u.ebMobile__usercode__c = a.ebmobile__salesroute__c ' +
         ' INNER JOIN dbo.AccountMapping am ON am.AccountId = a.Id ' +
         ' INNER JOIN dbo.AccountRegistration ar ON am.RegistrationId = ar.Id ' +
-        ' where ebmobile__primary__c= 1 AND ar.UserCode = \'' + username + '\' AND ar.Password = \'' + pwd + '\''; 
+        ' where ebmobile__primary__c= 1 AND a.isdeleted=0 AND ar.UserCode = \'' + username + '\' AND ar.Password = \'' + pwd + '\''; 
      dbHelper.query(query, function (err, result) {
         if (err) {
             console.error(err);
