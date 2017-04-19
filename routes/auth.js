@@ -24,7 +24,7 @@ router.post('/login', function (req, res) {
         ' from contact  c ' +
         ' inner join account a on c.accountid = a.id ' +
         ' inner join [user] u on u.ebMobile__usercode__c = a.ebmobile__salesroute__c ' +
-        ' where ebmobile__primary__c= 1 and a.accountnumber = \'503566289\'';
+        ' where ebmobile__primary__c= 1 and a.isDeleted=0 and a.accountnumber = \'503566289\'';
     dbHelper.query(query, function (err, result) {
         if (err) {
             console.error(err);
