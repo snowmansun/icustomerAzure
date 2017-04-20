@@ -4,27 +4,48 @@ var dbHelper = require('../db/dbHelper');
 
 /* GET home page. */
 router.post('/login', function (req, res) {
-    var model = {
-        login: {
-            required: true,
-            isnull: false
-        },
-        pwd: {
-            required: true,
-            isnull: false
-        }
-    };
+    //var model = {
+    //    login: {
+    //        required: true,
+    //        isnull: false
+    //    },
+    //    pwd: {
+    //        required: true,
+    //        isnull: false
+    //    }
+    //};
 
-    for (var item in model) {
+    //for (var item in model) {
 
+    //}
+
+    //var query = 'select a.accountnumber customercode,c.name customername,c.accountid,u.Name salesrepname ' +
+    //    '     , c.firstname,c.lastname, c.email, c.mobilephone ,u.Username salesrep,u.MobilePhone salesrepphone' +
+    //    ' from contact  c ' +
+    //    ' inner join account a on c.accountid = a.id ' +
+    //    ' inner join [user] u on u.ebMobile__usercode__c = a.ebmobile__salesroute__c ' +
+    //    ' where ebmobile__primary__c= 1 and a.accountnumber = \'503566289\'';
+
+    if (!req.body.username || !req.body.password) {
+        res.json({ err_code: 1, err_msg: 'miss param username or password' });
     }
 
-    var query = 'select a.accountnumber customercode,c.name customername,c.accountid,u.Name salesrepname ' +
-        '     , c.firstname,c.lastname, c.email, c.mobilephone ,u.Username salesrep,u.MobilePhone salesrepphone' +
-        ' from contact  c ' +
+    //var md5 = crypto.createHash('md5');
+    //md5.update(req.body.password);
+    //var pwd = md5.digest('hex');
+    var pwd = req.body.password;
+    var username = req.body.username;
+
+    var query = 'select a.accountnumber customercode,c.name customername,c.accountid,u.Name salesrepname,ar.Id uId ' +
+        '     , c.firstname, c.lastname, c.email, c.mobilephone, u.Username salesrep, u.MobilePhone salesrepphone ' +
+        ' from contact  c  ' +
         ' inner join account a on c.accountid = a.id ' +
         ' inner join [user] u on u.ebMobile__usercode__c = a.ebmobile__salesroute__c ' +
-        ' where ebmobile__primary__c= 1 and c.isdeleted=0 and a.isDeleted=0 and a.accountnumber = \'503566289\'';
+        ' INNER JOIN dbo.AccountMapping am ON am.AccountId = a.Id ' +
+        ' INNER JOIN dbo.AccountRegistration ar ON am.RegistrationId = ar.Id ' +
+        ' where ebmobile__primary__c= 1 and c.isdeleted=0 AND a.isdeleted=0 AND ar.UserCode = \'' + username + '\' AND ar.Password = \'' + pwd + '\'';
+
+
     dbHelper.query(query, function (err, result) {
         if (err) {
             console.error(err);
@@ -36,7 +57,7 @@ router.post('/login', function (req, res) {
                 expires_in: "7200",
                 outlets: [result[0].customercode],
                 user_info: {
-                    uid: '00128000009h94AAAQ',
+                    uid: result[0].uId,//'00128000009h94AAAQ',
                     accountid: result[0].accountid,
                     firstname: result[0].firstname,
                     lastname: result[0].lastname,
@@ -53,6 +74,25 @@ router.post('/login', function (req, res) {
                 order_view: 'grid'
             };
             res.json(res_json);
+        }
+        else {
+            res.json({});
+        }
+    });
+});
+
+router.post('/changepwd', function (req, res) {
+    if (!req.body.userid || !req.body.newpassword) {
+        res.json({ err_code: 1, err_msg: 'miss param userid or newpassword' });
+        return;
+    }
+    var uid = req.body.userid;
+    var password = req.body.newpassword;
+    var sql = 'UPDATE dbo.AccountRegistration SET Password=\'' + password + '\',UpdateDate=getdate() WHERE id=\'' + uid + '\'';
+    dbHelper.query(sql, function (err, result) {
+        if (err) {
+            res.json({ err_code: 2, err_msg: 'change password failed!' });
+            return;
         }
         else {
             res.json({});
