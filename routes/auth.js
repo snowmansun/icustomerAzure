@@ -26,7 +26,7 @@ router.post('/login', function (req, res) {
     //    ' inner join [user] u on u.ebMobile__usercode__c = a.ebmobile__salesroute__c ' +
     //    ' where ebmobile__primary__c= 1 and a.accountnumber = \'503566289\'';
 
-    if (!req.body.username || req.body.password) {
+    if (!req.body.username || !req.body.password) {
         res.json({ err_code: 1, err_msg: 'miss param username or password' });
     }
 
