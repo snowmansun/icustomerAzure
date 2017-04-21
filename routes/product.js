@@ -32,7 +32,7 @@ router.get('/list', function (req, res) {
         '       inner join ebmobile__accountgroup__c ag on agi.ebmobile__accountgroup__c = ag.id and ag.ebmobile__type__c = \'RED Survey\' ' +
         '       inner join ebmobile__musttohave__c mh on mh.ebmobile__accountgroup__c = ag.id and mh.ebmobile__isActive__c = 1 ' +
         '       inner join account ac on ac.id=agi.ebmobile__account__c ' +
-        '       where ac.accountnumber = \'' + req.query.accountnumber + '\' ' +
+        '       where ac.accountnumber = \'' + req.query.accountnumber + '\'  and ac.isdeleted=0  ' +
         '   ) mh on mh.ebmobile__Product__c = p.id  ' +
         '   left join ( ' +
         '       select distinct oi.ebmobile__product2__c ' +
@@ -40,7 +40,7 @@ router.get('/list', function (req, res) {
         '       inner join ( ' +
         '           select top 5 o.ebmobile__ordernumber__c from [order] o ' +
         '           inner join account ac on ac.id = o.accountid ' +
-        '           where ac.accountnumber= \'' + req.query.accountnumber + '\' ' +
+        '           where ac.accountnumber= \'' + req.query.accountnumber + '\'  and ac.isdeleted=0  ' +
         '           order by o.ebmobile__orderdate__c desc ' +
         '       ) o on oi.ebmobile__ordernumber__c = o.ebmobile__ordernumber__c ' +
         '   ) oi on oi.ebmobile__product2__c=p.id ' +
@@ -50,7 +50,7 @@ router.get('/list', function (req, res) {
         '       inner join ebmobile__accountgroup__c ag on agi.ebmobile__accountgroup__c = ag.id and ag.ebmobile__type__c = \'RSP\' ' +
         '       inner join account ac on ac.id = agi.ebmobile__account__c ' +
         '       inner join ebmobile__productrsp__c pr on pr.ebmobile__accountgroupid__c = ag.id ' +
-        '       where ac.accountnumber = \'' + req.query.accountnumber + '\' ' +
+        '       where ac.accountnumber = \'' + req.query.accountnumber + '\'  and ac.isdeleted=0 ' +
         '   ) rsp on rsp.ebmobile__productid__c = p.id ' +
         '   left join attachment am ON am.parentid = p.id  AND am.isDeleted=0 '+
         //'   (' +
