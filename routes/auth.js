@@ -28,6 +28,7 @@ router.post('/login', function (req, res) {
 
     if (!req.body.username || !req.body.password) {
         res.json({ err_code: 1, err_msg: 'miss param username or password' });
+        return;
     }
 
     //var md5 = crypto.createHash('md5');
