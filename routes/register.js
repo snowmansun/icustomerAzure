@@ -13,7 +13,7 @@ router.get('/getsmscode', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-    var query = 'select Id from account where accountnumber=\'' + req.body.accountnumber + '\'';
+    var query = 'select Id from account where accountnumber=\'' + req.body.accountnumber + '\' and isdeleted=0';
     dbHelper.query(query, function (err, result) {
         if (result.length > 0) {
             query = 'select usercode from AccountRegistration where usercode=\'' + req.body.username + '\'';
