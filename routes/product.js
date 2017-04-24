@@ -5,8 +5,10 @@ var dbHelper = require('../db/dbHelper');
 
 /* GET home page. */
 router.get('/list', function (req, res) {
-    if (!req.query.accountnumber)
+    if (!req.query.accountnumber) {
         res.json({ err_code: 1, err_msg: 'miss param accountnumber' });
+        return;
+    }
     var sql =
         'SELECT ROW_NUMBER() OVER(order by a.ismusttohave desc,a.ishistorysku desc,a.code) seq,* ' +
         'FROM (SELECT' +

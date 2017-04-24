@@ -392,4 +392,27 @@ router.get('/orderdetails', function (req, res) {
 
 });
 
+router.get('/shoppingcart', function (req, res) {
+    if (!req.query.account_id) {
+        res.json({ err_code: 1, err_msg: 'miss param accountnumber' });
+        return;
+    }
+
+    var sql = 'select p.ProductCode as product_code,QuantityCS as qty_cs,QuantityEA as qty_ea '+
+        ' from ShoppingCart cart ' +
+        ' inner join Product2 p on cart.ProductId = p.Id ' +
+        ' where cart.AccountId = \'' + req.query.account_id+'\'';
+
+    dbHelper.query(sql, function (err, result) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        res.json(result)
+    });
+
+});
+
+
 module.exports = router;

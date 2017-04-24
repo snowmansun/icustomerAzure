@@ -5,9 +5,10 @@ var dbHelper = require('../db/dbHelper');
 
 /* GET users listing. */
 router.get('/info', function (req, res) {
-    if (!req.query.accountnumber)
+    if (!req.query.accountnumber) {
         res.json({ err_code: 1, err_msg: 'miss param accountnumber' });
-
+        return;
+    }
     var query =
         'select ' +
         '    at.id as outlet_id, ' +
