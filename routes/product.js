@@ -12,6 +12,7 @@ router.get('/list', function (req, res) {
         'FROM (SELECT' +
         '   productcode AS code,' +
         '   p.description AS name,' +
+        '   isnull(p.ebMobile__Category__c,\'\') as category,' +
         '   ebmobile__flavor__c AS flavor,' +
         '   ebmobile__pack__c AS package,' +
         '   ebmobile__brand__c AS brand,' +
@@ -65,7 +66,7 @@ router.get('/list', function (req, res) {
         //'   ) am on am.parentid = p.id  ' +
         'Where p.isactive = 1) a ' + 
         //'Where p.isactive = 1 and  am.id is not null) a ' +
-        'order by a.ismusttohave desc,a.ishistorysku desc,a.package,a.brand,a.code ';
+        'order by a.ishistorysku desc,a.ismusttohave desc,a.category,a.package,a.brand,a.code ';
 
     dbHelper.query(sql, function (err, result) {
         if (err) {
