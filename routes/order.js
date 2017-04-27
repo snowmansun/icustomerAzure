@@ -360,41 +360,9 @@ router.get('/download', function (req, res) {
 
 });
 
-router.get('/orderdetails', function (req, res) {
-    if (!req.query.order_no)
-        res.json({ err_code: 1, err_msg: 'miss param order_no' });
-
-    var sql = 'select \'' + req.query.order_no + '\' order_no, '+
-        '     \'John Hanson\' salesrep, ' +
-        '     \'13510738521\' salesrepphone, ' +
-        '     \'Bruce White\' deliveryman, ' +
-        '     \'13910363500\' deliverymanphone, ' +
-        '     \'400-3838438\' callcenter, ' +
-
-        '     \'INV000004562\' invoicenumber, ' +
-        '     \'Cash\' paymentmethod, ' +
-        '     \'2016-08-31\' lastpaymentdate, ' +
-        '     \'100.00\' amountpaid, ' +
-        '     \'40.02\' amountdue';
-
-    dbHelper.query(sql,function (err, result) {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        if (result.length > 0) {
-            res.json(result[0]);
-        }
-        else {
-            res.json({});
-        }
-    });
-
-});
-
 router.get('/shoppingcart', function (req, res) {
     if (!req.query.account_id) {
-        res.json({ err_code: 1, err_msg: 'miss param accountnumber' });
+        res.json({ err_code: 1, err_msg: 'miss param account_id' });
         return;
     }
 
@@ -410,6 +378,37 @@ router.get('/shoppingcart', function (req, res) {
         }
 
         res.json(result)
+    });
+
+});
+
+router.post('/shoppingcart', function (req, res) {
+    var account_id = req.body.account_id;
+    var products = req.body.products;
+
+    if (!account_id) {
+        res.json({ err_code: 1, err_msg: 'miss param account_id' });
+        return;
+    }
+
+    var sql = [];
+    sql.push('delete from ShoppingCart where AccountId=\'' + account_id + '\';');
+    if (products.length > 0) {
+        products.forEach(function (item) {
+            sql.push('insert into ShoppingCart(AccountId,ProductId,QuantityCS,QuantityEA)');
+            sql.push('select \'' + account_id + '\',Id,'+ item.qty_cs + ',' + item.qty_ea + ' from product2 where IsDeleted=0 and ProductCode=\'' + item.product_code + '\';');
+        });
+    }
+
+    dbHelper.query(sql.join('\r\n'), function (err, result) {
+        if (err) {
+            console.error(err);
+            res.json({ err_code: 1, err_msg: err });
+        }
+        else {
+            console.log('insert success!');
+            res.json({ err_code: 0, err_msg: 'insert success!' });
+        }
     });
 
 });
