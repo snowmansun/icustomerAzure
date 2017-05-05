@@ -1,6 +1,6 @@
 ﻿var express = require('express');
+var request = require('request');
 var router = express.Router();
-//var db = require('../db/db');
 var dbHelper = require('../db/dbHelper');
 
 /* GET home page. */
@@ -75,7 +75,26 @@ router.get('/list', function (req, res) {
             console.error(err);
             return;
         }
-        res.json(result);
+
+        getBasePrice(req.query.accountnumber, function (error, basePrice) {
+            if (error) {
+                var msg = 'call PE error: ' + error;
+                console.error(msg);
+                res.json({ err_code: 1, err_msg: msg });
+                return;
+            }
+
+            result.forEach(function (item) {
+                basePrice.forEach(function (itemPrice) {
+                    if (item.code == itemPrice.productref) {
+                        item.price = itemPrice.Value;
+                    }
+                });
+            });
+
+            res.json(result);
+        });
+
     });
 });
 
@@ -129,5 +148,24 @@ router.get('/attr', function (req, res) {
         });
     });
 });
+
+/* call PE get base price */
+var getBasePrice = function (cust_code, callback) {
+    var post_options = {
+        url: 'http://ebesticustomercouch.chinacloudapp.cn/Pricing.svc/GetBasePriceInfoByCusProd',
+        method: 'POST',
+        json: true,
+        body: { "customerCode": cust_code, "products": [] }
+    };
+
+    request(post_options, function (error, res, body) {
+        if (error) {
+            callback(error);
+            return;
+        }
+
+        callback(error, eval(body));
+    });
+}
 
 module.exports = router;
