@@ -159,8 +159,8 @@ var getBasePrice = function (cust_code, callback) {
     };
 
     request(post_options, function (error, res, body) {
-        if (error) {
-            callback(error);
+        if (error || res.statusCode != 200) {
+            callback(error + " StatusCode " + res.statusCode);
             return;
         }
 
