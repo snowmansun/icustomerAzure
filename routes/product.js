@@ -76,25 +76,25 @@ router.get('/list', function (req, res) {
             return;
         }
 
-        //getBasePrice(req.query.accountnumber, function (error, basePrice) {
-        //    if (error) {
-        //        var msg = 'call PE error: ' + error;
-        //        console.error(msg);
-        //        res.json({ err_code: 1, err_msg: msg });
-        //        return;
-        //    }
+        getBasePrice(req.query.accountnumber, function (error, basePrice) {
+            if (error) {
+                var msg = 'call PE error: ' + error;
+                console.error(msg);
+                res.json({ err_code: 1, err_msg: msg });
+                return;
+            }
 
-        //    result.forEach(function (item) {
-        //        basePrice.forEach(function (itemPrice) {
-        //            if (item.code == itemPrice.productref) {
-        //                item.price = itemPrice.Value;
-        //            }
-        //        });
-        //    });
+            result.forEach(function (item) {
+                basePrice.forEach(function (itemPrice) {
+                    if (item.code == itemPrice.productref) {
+                        item.price = itemPrice.Value;
+                    }
+                });
+            });
 
-        //    res.json(result);
-        //});
-        res.json(result);
+            res.json(result);
+        });
+        //res.json(result);
     });
 });
 
