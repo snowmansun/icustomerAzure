@@ -24,9 +24,10 @@ router.post('/', function (req, res) {
                 else {
                     var guid = uuid.v4();
                     var content = req.body.password;
-                    var md5 = crypto.createHash('md5');
-                    md5.update(content);
-                    var pwd = md5.digest('hex');
+                    //var md5 = crypto.createHash('md5');
+                    //md5.update(content);
+                    //var pwd = md5.digest('hex');
+                    var pwd = content;
 
                     var sqlReg = 'INSERT INTO [dbo].[AccountRegistration] ' +
                         '      ( Id ' +
