@@ -18,9 +18,11 @@ router.get('/list', function (req, res) {
         '   ebmobile__flavor__c AS flavor,' +
         '   ebmobile__pack__c AS package,' +
         '   ebmobile__brand__c AS brand,' +
+        '   category.ebMobile__Squence__c AS seq_category,' +
+        '   brand.ebMobile__Squence__c AS seq_brand,' +
+        '   package.ebMobile__Squence__c AS seq_package,' +
         '   uom.ebmobile__denominator__c as denominator,' +
         '   am.id as pic,' +
-        //'   \'00P2800000208xQEAQ\' as pic,' +
         '   p.baseprice__c as price,' +
         '   case when mh.ebmobile__product__c is not null then 1 else 0 end as ismusttohave, ' +
         '   case when oi.ebmobile__product2__c is not null then 1 else 0 end as ishistorysku, ' +
@@ -66,9 +68,21 @@ router.get('/list', function (req, res) {
         //'           group by productcode, am.parentid ' +
         //'       ) a on am.parentid = a.parentid and am.lastmodifieddate = a.lastmodifieddate ' +
         //'   ) am on am.parentid = p.id  ' +
+        '   left join ebMobile__PickListMaster__c category on category.ebMobile__PicklistValue__c=p.ebMobile__Category__c '+
+        '        and category.ebmobile__fieldname__c = \'ebMobile__Category__c\' ' +
+        '        and category.ebmobile__objectname__c = \'Product2\' ' +
+        '        and category.ebmobile__isactive__c = 1 and category.IsDeleted=0 ' +
+        '   left join ebMobile__PickListMaster__c package on package.ebMobile__PicklistValue__c=p.ebmobile__pack__c ' +
+        '        and package.ebmobile__fieldname__c = \'ebmobile__pack__c\' ' +
+        '        and package.ebmobile__objectname__c = \'Product2\' ' +
+        '        and package.ebmobile__isactive__c = 1 and package.IsDeleted=0 ' +
+        '   left join ebMobile__PickListMaster__c brand on brand.ebMobile__PicklistValue__c=p.ebmobile__brand__c ' +
+        '        and brand.ebmobile__fieldname__c = \'ebmobile__brand__c\' ' +
+        '        and brand.ebmobile__objectname__c = \'Product2\' ' +
+        '        and brand.ebmobile__isactive__c = 1 and brand.IsDeleted=0 ' +
         'Where p.isactive = 1) a ' + 
         //'Where p.isactive = 1 and  am.id is not null) a ' +
-        'order by a.ishistorysku desc,a.ismusttohave desc,a.category,a.package,a.brand,a.code ';
+        'order by a.ishistorysku desc,a.ismusttohave desc,a.seq_category,a.seq_package,a.seq_brand,a.code ';
 
     dbHelper.query(sql, function (err, result) {
         if (err) {
@@ -107,17 +121,20 @@ router.get('/attr', function (req, res) {
         'SELECT ebMobile__PicklistValue__c "name", am.id pic ' +
         'FROM ebMobile__PickListMaster__c pm ' +
         'left join attachment  am on am.parentid = pm.id ' +
-        'where pm.ebmobile__fieldname__c = \'ebMobile__Brand__c\' and pm.ebmobile__objectname__c = \'Product2\' and pm.ebmobile__isactive__c=1';
+        'where pm.ebmobile__fieldname__c = \'ebMobile__Brand__c\' and pm.ebmobile__objectname__c = \'Product2\' and pm.ebmobile__isactive__c=1 ' +
+        'order by pm.ebMobile__Squence__c';
     var sql_flavor =
         'SELECT ebMobile__PicklistValue__c "name",am.id pic ' +
         'FROM ebMobile__PickListMaster__c pm ' +
         'left join attachment  am on am.parentid = pm.id ' +
-        'where pm.ebmobile__fieldname__c = \'ebMobile__Flavor__c\' and pm.ebmobile__objectname__c = \'Product2\' and pm.ebmobile__isactive__c=1';
+        'where pm.ebmobile__fieldname__c = \'ebMobile__Flavor__c\' and pm.ebmobile__objectname__c = \'Product2\' and pm.ebmobile__isactive__c=1 ' +
+        'order by pm.ebMobile__Squence__c';
     var sql_pack =
         'SELECT ebMobile__PicklistValue__c "name", am.id pic ' +
         'FROM ebMobile__PickListMaster__c pm ' +
         'left join attachment  am on am.parentid = pm.id ' +
-        'where pm.ebmobile__fieldname__c = \'ebMobile__Pack__c\' and pm.ebmobile__objectname__c = \'Product2\' and pm.ebmobile__isactive__c=1';
+        'where pm.ebmobile__fieldname__c = \'ebMobile__Pack__c\' and pm.ebmobile__objectname__c = \'Product2\' and pm.ebmobile__isactive__c=1 ' +
+        'order by pm.ebMobile__Squence__c';
 
     var res_json = {
         brand: '',
