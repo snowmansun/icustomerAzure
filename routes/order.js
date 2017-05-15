@@ -35,6 +35,7 @@ router.post('/', function (req, res) {
                 '       ebmobile__deliverynotes__c,' +
                 '       Status,' +
                 '       ebmobile__isactive__c, ' +
+                '       ebMobile__OrderSource__c, ' +
                 '       effectivedate)' +
                 '   VALUES(\'' + req.body.order_no + '\',' +
                 '       1,'+
@@ -56,6 +57,7 @@ router.post('/', function (req, res) {
                 '       N\'' + req.body.delivery_note + '\',' +
                 '       \'' + req.body.status + '\',' +
                 '       1,' +
+                '       \'iCustomer\',' +
                 '       \'' + time+'\')';
             dbHelper.getTransaction(function (sql, transaction) {
                 transaction.begin(function (err) {
@@ -235,7 +237,8 @@ router.get('/download', function (req, res) {
         '          pt.Name product_code , ' +
         '          ebMobile__UOMCode__c uom_code , ' +
         '          ebMobile__OrderQuantity__c item_qty , ' +
-        '          UnitPrice unit_price ' +
+        '          UnitPrice unit_price, ' +
+        '          a.order_source ' +
         '  FROM    (  ' +
         '              SELECT TOP 10 ' +
         '                      o.ebMobile__OrderNumber__c , ' +
@@ -253,6 +256,7 @@ router.get('/download', function (req, res) {
         '                      CONVERT(VARCHAR(10), o.ebMobile__DeliveryDate__c, 120) delivery_date , ' +
         '                      o.ebMobile__DeliveryNotes__c delivery_note , ' +
         '                      o.Status status , ' +
+        '                      o.ebMobile__OrderSource__c order_source , ' +
         '                      \'John Hanson\' salesrep , ' +
         '                      \'13510738521\' salesrepphone , ' +
         '                      \'Bruce White\' deliveryman , ' +
