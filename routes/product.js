@@ -100,29 +100,26 @@ router.get('/list', function (req, res) {
 
 /* GET home page. */
 router.get('/attr', function (req, res) {
-    //var sql_brand = 'SELECT DISTINCT ebmobile__brand__c as name,null as pic from product2 where ebmobile__brand__c is not NULL';
-    //var sql_flavor = 'SELECT DISTINCT ebmobile__flavor__c as name,null as pic from product2 where ebmobile__flavor__c is not NULL';
-    //var sql_pack = 'SELECT DISTINCT ebmobile__pack__c as name,null as pic from product2 where ebmobile__pack__c is not NULL';
     var sql_brand =
         'SELECT ebMobile__PicklistValue__c "name", pm.ebMobile__Sequence__c seq, am.id pic ' +
         'FROM ebMobile__PickListMaster__c pm ' +
         'left join attachment  am on am.parentid = pm.id ' +
         'where pm.ebmobile__fieldname__c = \'ebMobile__Brand__c\' and pm.ebmobile__objectname__c = \'Product2\'' +
-        '   and pm.ebmobile__isactive__c = 1 and pm.ebMobile__Sequence__c is not null ' +
+        '   and pm.IsDeleted=0 and pm.ebMobile__Sequence__c is not null ' +
         'order by pm.ebMobile__Sequence__c';
     var sql_flavor =
         'SELECT ebMobile__PicklistValue__c "name", pm.ebMobile__Sequence__c seq, am.id pic ' +
         'FROM ebMobile__PickListMaster__c pm ' +
         'left join attachment  am on am.parentid = pm.id ' +
         'where pm.ebmobile__fieldname__c = \'ebMobile__Flavor__c\' and pm.ebmobile__objectname__c = \'Product2\'' +
-        '   and pm.ebmobile__isactive__c = 1 and pm.ebMobile__Sequence__c is not null ' +
+        '   and pm.IsDeleted = 0 and pm.ebMobile__Sequence__c is not null ' +
         'order by pm.ebMobile__Sequence__c';
     var sql_pack =
         'SELECT ebMobile__PicklistValue__c "name", pm.ebMobile__Sequence__c seq, am.id pic ' +
         'FROM ebMobile__PickListMaster__c pm ' +
         'left join attachment  am on am.parentid = pm.id ' +
         'where pm.ebmobile__fieldname__c = \'ebMobile__Pack__c\' and pm.ebmobile__objectname__c = \'Product2\'' +
-        '   and pm.ebmobile__isactive__c = 1 and pm.ebMobile__Sequence__c is not null ' +
+        '   and pm.IsDeleted = 0 and pm.ebMobile__Sequence__c is not null ' +
         'order by pm.ebMobile__Sequence__c';
 
     var res_json = {
