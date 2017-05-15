@@ -24,9 +24,9 @@ router.get('/list', function (req, res) {
         '   ebmobile__flavor__c AS flavor,' +
         '   ebmobile__pack__c AS package,' +
         '   ebmobile__brand__c AS brand,' +
-        '   category.ebMobile__Squence__c AS seq_category,' +
-        '   brand.ebMobile__Squence__c AS seq_brand,' +
-        '   package.ebMobile__Squence__c AS seq_package,' +
+        '   category.ebMobile__Sequence__c AS seq_category,' +
+        '   brand.ebMobile__Sequence__c AS seq_brand,' +
+        '   package.ebMobile__Sequence__c AS seq_package,' +
         '   uom.ebmobile__denominator__c as denominator,' +
         '   am.id as pic,' +
         '   p.baseprice__c as price,' +
