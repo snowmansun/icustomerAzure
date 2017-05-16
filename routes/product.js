@@ -12,7 +12,7 @@ router.get('/list', function (req, res) {
     var sql =
         ' SELECT * INTO #account_tmp FROM dbo.Account WHERE AccountNumber= \'' + req.query.accountnumber + '\' AND isDeleted= 0 ' +
         ' SELECT * INTO #pickList FROM ebMobile__PickListMaster__c  ' +
-        ' WHERE(ebMobile__FieldName__c IN  (\'ebMobile__Category__c\', \'ebMobile__category__c\', \'ebMobile__Pack__c\')) ' +
+        ' WHERE(ebMobile__FieldName__c IN  (\'ebMobile__Category__c\', \'ebMobile__Brand__c\', \'ebMobile__Pack__c\')) ' +
         ' AND ebMobile__ObjectName__c = \'Product2\' ' +
         ' AND ebMobile__IsActive__c = 1 ' +
         ' AND IsDeleted = 0 ' +
@@ -68,7 +68,7 @@ router.get('/list', function (req, res) {
         '   left join #pickList brand on brand.ebMobile__PicklistValue__c=p.ebmobile__brand__c ' +
         '        and brand.ebmobile__fieldname__c = \'ebmobile__brand__c\' ' +
         ' Where p.isactive = 1) a ' +
-        ' order by a.ishistorysku desc,a.ismusttohave desc,a.seq_category,a.seq_package,a.seq_brand,a.code '+
+        ' order by a.ishistorysku desc,a.ismusttohave desc,a.seq_category,a.seq_brand,a.seq_package,a.code '+
         ' DROP TABLE #account_tmp,#pickList';
 
     dbHelper.query(sql, function (err, result) {
