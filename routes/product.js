@@ -42,6 +42,7 @@ router.get('/list', function (req, res) {
         '       inner join ebmobile__accountgroup__c ag on agi.ebmobile__accountgroup__c = ag.id and ag.ebmobile__type__c = \'RED Survey\' ' +
         '       inner join ebmobile__musttohave__c mh on mh.ebmobile__accountgroup__c = ag.id and mh.ebmobile__isActive__c = 1 ' +
         '       inner join #account_tmp ac on ac.id=agi.ebmobile__account__c ' +
+        '       where mh.IsDeleted=0 ' +
         '   ) mh on mh.ebmobile__Product__c = p.id  ' +
         '   left join ( ' +
         '       select distinct oi.ebmobile__product2__c ' +
