@@ -5,9 +5,10 @@ var dbHelper = require('../db/dbHelper');
 
 /* GET users listing. */
 router.get('/info', function (req, res) {
-    if (!req.query.accountnumber)
+    if (!req.query.accountnumber) {
         res.json({ err_code: 1, err_msg: 'miss param accountnumber' });
-
+        return;
+    }
     var query =
         'select ' +
         '    at.id as outlet_id, ' +
@@ -20,7 +21,7 @@ router.get('/info', function (req, res) {
         '    \'CS\' as order_unit ' +
         'from account at ' +
         'inner join contact ct on at.id = ct.accountid and ct.ebmobile__primary__c = 1 ' +
-        'where at.accountnumber=\'' + req.query.accountnumber + '\'';
+        'where at.isdeleted=0 and ct.isdeleted=0 and at.accountnumber=\'' + req.query.accountnumber + '\'';
     dbHelper.query(query, function (err, result) {
         if (err) {
             console.error(err);

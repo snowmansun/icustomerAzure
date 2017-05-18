@@ -4,8 +4,10 @@ var router = express.Router();
 var dbHelper = require('../db/dbHelper');
 
 router.get('/', function (req, res) {
-    if (!req.query.pic)
+    if (!req.query.pic) {
         res.json({ err_code: 1, err_msg: 'miss param pic' });
+        return;
+    }
 
     var sql = 'select name,contenttype,bodylength,body from attachment where id=\'' + req.query.pic + '\'';
 
@@ -40,8 +42,10 @@ router.get('/', function (req, res) {
     });
 });
 router.get('/list', function (req, res) {
-    if (!req.query.pics)
+    if (!req.query.pics) {
         res.json({ err_code: 2, err_msg: 'miss param pics' });
+        return;
+    }
 
     var picArr = req.query.pics.split(',');
     var picWhere = '';

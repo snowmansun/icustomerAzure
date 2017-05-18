@@ -13,7 +13,7 @@ router.get('/getsmscode', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-    var query = 'select Id from account where accountnumber=\'' + req.body.accountnumber + '\'';
+    var query = 'select Id from account where accountnumber=\'' + req.body.accountnumber + '\' and isdeleted=0 ';
     dbHelper.query(query, function (err, result) {
         if (result.length > 0) {
             query = 'select usercode from AccountRegistration where usercode=\'' + req.body.username + '\'';
@@ -23,10 +23,11 @@ router.post('/', function (req, res) {
                 }
                 else {
                     var guid = uuid.v4();
-                    var password = req.body.password;
+                    var content = req.body.password;
                     //var md5 = crypto.createHash('md5');
-                    //md5.update(password);
+                    //md5.update(content);
                     //var pwd = md5.digest('hex');
+                    var pwd = content;
 
                     var sqlReg = 'INSERT INTO [dbo].[AccountRegistration] ' +
                         '      ( Id ' +
@@ -44,7 +45,7 @@ router.post('/', function (req, res) {
                         '       ,\'' + req.body.username + '\' ' +
                         '       ,\'' + req.body.firstname + '\' ' +
                         '       ,\'' + req.body.lastname + '\' ' +
-                        '       ,\'' + password + '\' ' +
+                        '       ,\'' + pwd + '\' ' +
                         '       ,\'' + req.body.email + '\' ' +
                         '       ,\'' + req.body.mobile + '\' ' +
                         '       ,\'' + req.body.smscode + '\' ' +

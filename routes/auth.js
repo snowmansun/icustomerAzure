@@ -28,6 +28,7 @@ router.post('/login', function (req, res) {
 
     if (!req.body.username || !req.body.password) {
         res.json({ err_code: 1, err_msg: 'miss param username or password' });
+        return;
     }
 
     //var md5 = crypto.createHash('md5');
@@ -36,17 +37,17 @@ router.post('/login', function (req, res) {
     var pwd = req.body.password;
     var username = req.body.username;
 
-    var query = 'select a.accountnumber customercode,c.name customername,c.accountid,u.Name salesrepname,ar.Id uId '+
+    var query = 'select a.accountnumber customercode,c.name customername,c.accountid,u.Name salesrepname,ar.Id uId ' +
         '     , c.firstname, c.lastname, c.email, c.mobilephone, u.Username salesrep, u.MobilePhone salesrepphone ' +
         ' from contact  c  ' +
         ' inner join account a on c.accountid = a.id ' +
         ' inner join [user] u on u.ebMobile__usercode__c = a.ebmobile__salesroute__c ' +
         ' INNER JOIN dbo.AccountMapping am ON am.AccountId = a.Id ' +
         ' INNER JOIN dbo.AccountRegistration ar ON am.RegistrationId = ar.Id ' +
-        ' where ebmobile__primary__c= 1 and c.isdeleted=0 AND a.isdeleted=0 AND ar.UserCode = \'' + username + '\' AND ar.Password = \'' + pwd + '\''; 
+        ' where ebmobile__primary__c= 1 and c.isdeleted=0 AND a.isdeleted=0 AND ar.UserCode = \'' + username + '\' AND ar.Password = \'' + pwd + '\'';
 
 
-     dbHelper.query(query, function (err, result) {
+    dbHelper.query(query, function (err, result) {
         if (err) {
             console.error(err);
             return;
