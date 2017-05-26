@@ -77,7 +77,7 @@ router.post('/login', function (req, res) {
             res.json(res_json);
         }
         else {
-            res.json({});
+            res.json({ errocode: "1001", erromsg: "invalid username or password." });
         }
     });
 });
