@@ -7,7 +7,7 @@ var crypto = require('crypto');
 
 router.get('/getsmscode', function (req, res) {
     var res_json = {
-        smscode:"4567"
+        smscode:"123456"
     };
     res.json(res_json);
 });
