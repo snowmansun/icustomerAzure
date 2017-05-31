@@ -37,14 +37,13 @@ router.post('/login', function (req, res) {
     var pwd = req.body.password;
     var username = req.body.username;
 
-    var query = 'select a.accountnumber customercode,c.name customername,c.accountid,u.Name salesrepname,ar.Id uId ' +
-        '     , c.firstname, c.lastname, c.email, c.mobilephone, u.Username salesrep, u.MobilePhone salesrepphone ' +
-        ' from contact  c  ' +
-        ' inner join account a on c.accountid = a.id ' +
+    var query = 'select a.accountnumber customercode,a.name customername,a.id accountid,u.Name salesrepname,ar.Id uId ' +
+        '     , ar.firstname, ar.lastname, ar.email, ar.mobile mobilephone, u.Username salesrep, u.MobilePhone salesrepphone ' +
+        ' from account a ' +
         ' inner join [user] u on u.ebMobile__usercode__c = a.ebmobile__salesroute__c ' +
         ' INNER JOIN dbo.AccountMapping am ON am.AccountId = a.Id ' +
         ' INNER JOIN dbo.AccountRegistration ar ON am.RegistrationId = ar.Id ' +
-        ' where ebmobile__primary__c= 1 and c.isdeleted=0 AND a.isdeleted=0 AND ar.UserCode = \'' + username + '\' AND ar.Password = \'' + pwd + '\'';
+        ' where a.isdeleted=0 AND ar.UserCode = \'' + username + '\' AND ar.Password = \'' + pwd + '\'';
 
 
     dbHelper.query(query, function (err, result) {

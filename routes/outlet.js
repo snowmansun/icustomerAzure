@@ -13,7 +13,7 @@ router.get('/info', function (req, res) {
         'select ' +
         '    at.id as outlet_id, ' +
         '    at.accountnumber as code, ' +
-        '    ct.name as name, ' +
+        '    at.name as name, ' +
         '    ct.mobilephone as mobile, ' +
         '    ct.phone as tel, ' +
         '    at.ebmobile__address__c as address, ' +
