@@ -44,6 +44,8 @@
     <Compile Include="routes\outlet.js" />
     <Compile Include="bin\www" />
     <Compile Include="routes\register.js" />
+    <Compile Include="routes\SMSAPI.js" />
+    <Content Include="config.json" />
     <Content Include="config\default.json" />
     <Content Include="package.json" />
     <Content Include="Procfile" />

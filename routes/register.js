@@ -5,12 +5,33 @@ var dbHelper = require('../db/dbHelper');
 var async = require('async');  
 var crypto = require('crypto');
 
-router.get('/getsmscode', function (req, res) {
-    var res_json = {
-        smscode:"123456"
-    };
-    res.json(res_json);
-});
+//var accountSid = 'ACc1eb416be0d28c6d05fe30a24f0010f2';
+//var authToken = '48ea1e623353b7578d074ed8cb405648';
+//var client = require('twilio')(accountSid, authToken); 
+
+//router.get('/getsmscode', function (req, res) {
+
+//    client.messages.create({
+//        to: "+8613761214333",
+//        from: "+12012989467",
+//        body: "This is the ship that made the Kessel Run in fourteen parsecs?",
+//    }, function (err, message) {
+//        var res_json = {};
+//        if (err)
+//        {
+//            res_json = {
+//                status: false
+//            };
+//        }
+//        else {
+//            res_json = {
+//                status: true
+//            };
+//        }
+//        res.json(res_json);
+//    });
+
+//});
 
 router.post('/', function (req, res) {
     var query = 'select Id,mobilephone from account where accountnumber=\'' + req.body.accountnumber + '\' and isdeleted=0 ';
