@@ -100,6 +100,25 @@ router.post('/changepwd', function (req, res) {
     });
 });
 
+router.post('/changepwdbymobile', function (req, res) {
+    if (!req.body.mobile || !req.body.password) {
+        res.json({ err_code: 1, err_msg: 'miss param mobile or newpassword' });
+        return;
+    }
+    var mobile = req.body.mobile;
+    var password = req.body.password;
+    var sql = 'UPDATE dbo.AccountRegistration SET Password=\'' + password + '\',UpdateDate=getdate() WHERE Mobile=\'' + mobile + '\' And IsActive=1 ';
+    dbHelper.query(sql, function (err, result) {
+        if (err) {
+            res.json({ err_code: 2, err_msg: 'change password failed!' });
+            return;
+        }
+        else {
+            res.json({});
+        }
+    });
+});
+
 router.get('/logout', function (req, res) {
     var res_json = {
         err_code: "0",

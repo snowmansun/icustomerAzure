@@ -6,6 +6,7 @@ var config = require('../config.json');
 
 var accountSid = config.accountSid;
 var authToken = config.authToken;
+var activeTime = config.activeTime;
 var client = require('twilio')(accountSid, authToken);
 
 router.get('/getsmscode', function (req, res) {
@@ -40,7 +41,7 @@ router.get('/getsmscode', function (req, res) {
             }
             client.messages.create({
                 to: mobile,
-                from: "+14152365395",
+                from: config.from,
                 body: "Your verification code is:" + smscode,
             }, function (err, message) {
                 if (err) {
@@ -64,7 +65,7 @@ router.get('/getsmscode', function (req, res) {
                         '      ,\'' + mobile + '\' ' +
                         '      ,\'' + smscode + '\' ' +
                         '      ,1 ' +
-                        '      ,3 ' +
+                        '      ,' + activeTime + ' ' +
                         '      ,getdate() ' +
                         '      ,\'Interface\') ';
                     dbHelper.query(sql, function (err, result) {
@@ -77,9 +78,6 @@ router.get('/getsmscode', function (req, res) {
             });
         }
     });
-
-    
-
 });
 
 router.get('/smscodecheck', function (req, res) {
