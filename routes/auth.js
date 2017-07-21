@@ -95,14 +95,14 @@ router.post('/changepwd', function (req, res) {
             return;
         }
         else {
-            res.json({});
+            res.json({ err_code: 0, err_msg: '' });
         }
     });
 });
 
 router.post('/changepwdbymobile', function (req, res) {
     if (!req.body.mobile || !req.body.password) {
-        res.json({ err_code: 1, err_msg: 'miss param mobile or newpassword' });
+        res.json({ err_code: 1, err_msg: 'miss param mobile or password' });
         return;
     }
     var mobile = req.body.mobile;
@@ -114,7 +114,7 @@ router.post('/changepwdbymobile', function (req, res) {
             return;
         }
         else {
-            res.json({});
+            res.json({ err_code: 0, err_msg: '' });
         }
     });
 });
