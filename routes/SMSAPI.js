@@ -46,7 +46,8 @@ router.get('/getsmscode', function (req, res) {
             }, function (err, message) {
                 if (err) {
                     var res_json = {
-                        status: false
+                        status: false,
+                        msg: err.message
                     };
                     res.json(res_json);
                 }

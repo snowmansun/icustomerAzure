@@ -176,6 +176,7 @@
     <Folder Include="models\" />
     <Folder Include="comm\" />
     <Folder Include="public\" />
+    <Folder Include="public\img\" />
     <Folder Include="public\themes\default\css\" />
     <Folder Include="public\themes\default\img\" />
     <Folder Include="public\javascripts\" />
