@@ -269,14 +269,15 @@ router.get('/download', function (req, res) {
         '                      \'40.02\' amountdue ' +
         '              FROM      [Order] o ' +
         '                      INNER JOIN Account a ON o.AccountId = a.Id ' +
-        '              WHERE     a.AccountNumber = \'' + req.query.accountnumber+'\' ' +
+        '              WHERE     a.AccountNumber = \'' + req.query.accountnumber + '\' ' +
         '                      AND o.ebMobile__IsActive__c = 1 ' +
         '                      AND o.ebMobile__OrderDate__c > DATEADD(MONTH, -6, GETDATE()) ' +
         '              ORDER BY  o.ebMobile__OrderDate__c DESC ' +
         '      ) a ' +
         '      INNER JOIN OrderItem oi ON oi.ebMobile__OrderNumber__c = a.ebMobile__OrderNumber__c ' +
         '      INNER JOIN Product2 pt ON pt.Id = oi.ebMobile__Product2__c ' +
-        '      LEFT JOIN Attachment am ON am.ParentId = pt.Id AND am.IsDeleted = 0; ';
+        '      LEFT JOIN Attachment am ON am.ParentId = pt.Id AND am.IsDeleted = 0 ' +
+        '   ORDER BY a.order_date DESC; ';
 
     dbHelper.query(sql, function (err,resOrder) {
         if (err) {
