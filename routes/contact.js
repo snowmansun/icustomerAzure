@@ -23,7 +23,7 @@ router.get('/info', function (req, res) {
 });
 
 router.post('/update', function (req, res) {
-    var query = 'update contact set SFDCSyncFlag=1,ebMobile__GUID__c=isnull(ebMobile__GUID__c,newid()),firstname=\'' + req.body.firstname + '\',lastname=\'' + req.body.lastname + '\',email=\'' + req.body.email + '\',mobilephone=\'' + req.body.mobile + '\' where accountid=\'' + req.body.accountid + '\' and ebmobile__primary__c= 1 ';
+    var query = 'update AccountRegistration set UpdateDate=getdate(), FirstName=\'' + req.body.firstname + '\',LastName=\'' + req.body.lastname + '\',Email=\'' + req.body.email + '\',Mobile=\'' + req.body.mobile + '\' where Id in (select RegistrationId from AccountMapping where AccountId=\'' + req.body.accountid + '\') ';
     dbHelper.query(query, function (err, result) {
         if (err) {
             res.json({ err_code: 1, err_msg: 'insert failed:' + err.message });
