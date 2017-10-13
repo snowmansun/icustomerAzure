@@ -105,8 +105,8 @@ router.post('/', function (req, res) {
                     items.forEach(function (item) {
                         tasks.push(function (callback) {
                             seq++;
-                            var itemSequence = ('00000' + (seq * 10).toString());
-                            itemSequence = itemSequence.substring(itemSequence.length - 5, itemSequence.length);
+                            //var itemSequence = ('00000' + (seq * 10).toString());
+                            //itemSequence = itemSequence.substring(itemSequence.length - 5, itemSequence.length);
 
                             sqlItem = 'declare @pId nvarchar(50) select @pId = id from product2 where productcode=\'' + item.product_code + '\' ' +
                                 '   insert into orderitem(ebMobile__OrderNumber__c, ' +
@@ -141,7 +141,7 @@ router.post('/', function (req, res) {
                                 '       \'' + req.body.status+'\',' +
                                 '       \'' + item.discount + '\',' +
                                 '        \'' + uuid.v4() + '\', ' +
-                                '       \'' + itemSequence + '\')';
+                                '       \'' + item.itemsequence + '\')';
 
                             console.log("sql[" + i + "]:" + sqlItem);
                             request.query(sqlItem, function (err, result) {
