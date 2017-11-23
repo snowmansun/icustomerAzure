@@ -71,7 +71,7 @@ router.post('/login', function (req, res) {
                     salesrepphone: result[0].salesrepphone,
                     head_pic: 'http://i.niupic.com/images/2017/01/11/fggYoq.jpg'
                 },
-                order_view: 'grid'
+                order_view: 'grid'  
             };
             res.json(res_json);
         }
