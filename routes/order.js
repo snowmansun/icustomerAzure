@@ -235,6 +235,7 @@ router.get('/download', function (req, res) {
         '          ISNULL(oi.ebMobile__LineTaxAmount__c, 0) linetaxamount , ' +
         '          am.Id AS pic , ' +
         '          pt.Name product_code , ' +
+        '          pt.ProudctCode pCode,'+
         '          ebMobile__UOMCode__c uom_code , ' +
         '          ebMobile__OrderQuantity__c item_qty , ' +
         '          UnitPrice unit_price, ' +
