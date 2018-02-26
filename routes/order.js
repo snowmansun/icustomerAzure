@@ -293,6 +293,7 @@ router.get('/download', function (req, res) {
                 if (lastOrderNumber == row.order_no) {
                     var itemJson = {
                         "product_code": row.product_code,
+                        "pCode": row.pCode,
                         "uom_code": row.uom_code,
                         "qty": row.item_qty,
                         "unit_price": row.unit_price,
@@ -342,6 +343,7 @@ router.get('/download', function (req, res) {
                         "items": [
                             {
                                 "product_code": row.product_code,
+                                "pCode": row.pCode,
                                 "uom_code": row.uom_code,
                                 "qty": row.item_qty,
                                 "unit_price": row.unit_price,
