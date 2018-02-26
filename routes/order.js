@@ -235,7 +235,7 @@ router.get('/download', function (req, res) {
         '          ISNULL(oi.ebMobile__LineTaxAmount__c, 0) linetaxamount , ' +
         '          am.Id AS pic , ' +
         '          pt.Name product_code , ' +
-        '          pt.ProudctCode pCode,' +
+        '          pt.ProductCode pCode,' +
         '          ebMobile__UOMCode__c uom_code , ' +
         '          ebMobile__OrderQuantity__c item_qty , ' +
         '          UnitPrice unit_price, ' +
@@ -292,6 +292,7 @@ router.get('/download', function (req, res) {
                 if (lastOrderNumber == row.order_no) {
                     var itemJson = {
                         "product_code": row.product_code,
+                        "pCode":row.pCode,
                         "uom_code": row.uom_code,
                         "qty": row.item_qty,
                         "unit_price": row.unit_price,
@@ -341,6 +342,7 @@ router.get('/download', function (req, res) {
                         "items": [
                             {
                                 "product_code": row.product_code,
+                                "pCode": row.pCode,
                                 "uom_code": row.uom_code,
                                 "qty": row.item_qty,
                                 "unit_price": row.unit_price,
