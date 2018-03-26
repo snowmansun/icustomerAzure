@@ -16,7 +16,7 @@ router.get('/list', function (req, res) {
         ' AND ebMobile__ObjectName__c = \'Product2\' ' +
         ' AND ebMobile__IsActive__c = 1 ' +
         ' AND IsDeleted = 0 ' +
-        ' SELECT ROW_NUMBER() OVER(order by a.ishistorysku desc,a.ismusttohave desc,a.seq_category,a.seq_package,a.seq_brand,a.code) seq,* ' +
+        ' SELECT ROW_NUMBER() OVER(order by a.ishistorysku desc,a.ismusttohave desc,a.seq_category,a.seq_brand,a.seq_package,a.code) seq,* ' +
         ' FROM (SELECT' +
         '   productcode AS code,' +
         '   p.name AS name,' +
