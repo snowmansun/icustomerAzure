@@ -5,6 +5,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>iCustomer</Name>
     <RootNamespace>iCustomer</RootNamespace>
+    <NameOfLastUsedPublishProfile>Test</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -34,6 +35,7 @@
     <Compile Include="comm\validate_params.js" />
     <Compile Include="db\db.js" />
     <Compile Include="db\dbHelper.js" />
+    <Compile Include="launch.js" />
     <Compile Include="models\product.js" />
     <Compile Include="routes\auth.js" />
     <Compile Include="routes\contact.js" />
@@ -53,6 +55,7 @@
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\error.jade" />
+    <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />
