@@ -33,7 +33,6 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Compile Include="comm\validate_params.js" />
-    <Compile Include="db\db.js" />
     <Compile Include="db\dbHelper.js" />
     <Compile Include="launch.js" />
     <Compile Include="models\product.js" />

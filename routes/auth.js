@@ -41,9 +41,9 @@ router.post('/login', function (req, res) {
         '     , c.firstname, c.lastname, c.email, c.mobilephone, u.Username salesrep, u.MobilePhone salesrepphone ' +
         ' from contact  c  ' +
         ' inner join account a on c.accountid = a.id ' +
-        ' inner join [user] u on u.ebMobile__usercode__c = a.ebmobile__salesroute__c ' +
-        ' INNER JOIN dbo.AccountMapping am ON am.AccountId = a.Id ' +
-        ' INNER JOIN dbo.AccountRegistration ar ON am.RegistrationId = ar.Id ' +
+        ' inner join AccountMapping am ON am.AccountId = a.Id ' +
+        ' inner join AccountRegistration ar ON am.RegistrationId = ar.Id ' +
+        ' left join [user] u on u.ebMobile__usercode__c = a.ebmobile__salesroute__c ' +
         ' where ebmobile__primary__c= 1 and c.isdeleted=0 AND a.isdeleted=0 AND ar.UserCode = \'' + username + '\' AND ar.Password = \'' + pwd + '\'';
 
 
